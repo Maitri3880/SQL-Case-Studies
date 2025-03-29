@@ -138,7 +138,7 @@ ORDER BY customer_id;
 WITH purchase_order AS
 (
   SELECT 
-	sales.customer_id,
+    sales.customer_id,
     sales.product_id,
     DENSE_RANK() OVER (
       PARTITION BY sales.customer_id
@@ -148,7 +148,7 @@ WITH purchase_order AS
   WHERE sales.order_date < members.join_date
 )
 SELECT 
-	purchase_order.customer_id,
+    purchase_order.customer_id,
     menu.product_name AS purchase_before_membership
 FROM purchase_order JOIN dannys_diner.menu
 ON purchase_order.product_id = menu.product_id
