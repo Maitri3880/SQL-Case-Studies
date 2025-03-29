@@ -25,6 +25,12 @@ Danny created Foodie-Fi with a data driven mindset and wanted to ensure all futu
   - Upgrades: When customers upgrade their account from a basic plan to a pro or annual pro plan - the higher plan will take effect straightaway.
   - Downgrades/Cancellations: If customers downgrade from a pro plan or cancel their subscription - the higher plan will remain in place until the period is over.
   - Churn: When customers churn - they will keep their access until the end of their current billing period.
+ 
+## Case Study Questions
+- Customer Journey
+- Data Analysis Questions
+- Challenge Payment Question
+- Outside The Box Questions
 
 ## Acknowledgments
 - [8 Weeks SQL Challenge](https://8weeksqlchallenge.com/)
