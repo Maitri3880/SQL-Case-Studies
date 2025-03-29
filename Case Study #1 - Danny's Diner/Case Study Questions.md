@@ -21,16 +21,16 @@ ORDER BY customer_id;
 ```sql
 SELECT 
     customer_id,
-    COUNT(DISTINCT order_date) AS customer_visits
+    COUNT(DISTINCT order_date) AS total_visits
 FROM dannys_diner.sales
 GROUP BY customer_id;
 ```
 **Result:**
-| customer_id | customer_visits |
-| ----------- | --------------- |
-| A           | 4               |
-| B           | 6               |
-| C           | 2               |
+| customer_id | total_visits |
+| ----------- | -------------|
+| A           | 4            |
+| B           | 6            |
+| C           | 2            |
 
 **3. What was the first item from the menu purchased by each customer?**
 ```sql
@@ -46,18 +46,18 @@ ON sales.product_id = menu.product_id
 )
 SELECT 
     customer_id,
-    product_name
+    product_name AS first_purchase
 FROM sales_order 
 WHERE rank = 1
 GROUP BY customer_id, product_name;
 ```
 **Result:**
-| customer_id | product_name |
-| ----------- | ------------ |
-| A           | curry        |
-| A           | sushi        |
-| B           | curry        |
-| C           | ramen        |
+| customer_id | first_purchase |
+| ----------- | -------------- |
+| A           | curry          |
+| A           | sushi          |
+| B           | curry          |
+| C           | ramen          |
 
 **4. What is the most purchased item on the menu and how many times was it purchased by all customers?**
 ```sql
@@ -121,28 +121,66 @@ WITH purchase_order AS
 )
 SELECT 
     customer_id,
-    product_name AS first_purchase
+    product_name AS first_purchase_after_membership
 FROM purchase_order JOIN dannys_diner.menu
 ON purchase_order.product_id = menu.product_id
 WHERE rank = 1
 ORDER BY customer_id;
 ```
 **Result:**
-| customer_id | first_purchase |
-| ----------- | -------------- |
-| A           | ramen          |
-| B           | sushi          |
+| customer_id | first_purchase_after_membership |
+| ----------- | ------------------------------- |
+| A           | ramen          			|
+| B           | sushi          			|
 
 **7. Which item was purchased just before the customer became a member?**
 ```sql
-
+WITH purchase_order AS
+(
+  SELECT 
+	sales.customer_id,
+    sales.product_id,
+    DENSE_RANK() OVER (
+      PARTITION BY sales.customer_id
+      ORDER BY sales.order_date DESC) AS rank
+  FROM dannys_diner.sales JOIN dannys_diner.members
+  ON sales.customer_id = members.customer_id
+  WHERE sales.order_date < members.join_date
+)
+SELECT 
+	purchase_order.customer_id,
+    menu.product_name AS purchase_before_membership
+FROM purchase_order JOIN dannys_diner.menu
+ON purchase_order.product_id = menu.product_id
+WHERE rank = 1
+ORDER BY customer_id;
 ```
 **Result:**
+| customer_id | purchase_before_membership |
+| ----------- | -------------------------- |
+| A           | sushi                      |
+| A           | curry                      |
+| B           | sushi                      |
 
 **8. What is the total items and amount spent for each member before they became a member?**
 ```sql
+SELECT
+    sales.customer_id,
+    COUNT(*) AS total_items_before_membership,
+    SUM(menu.price) AS total_amount_before_membership
+FROM dannys_diner.sales JOIN dannys_diner.menu
+ON sales.product_id = menu.product_id
+JOIN dannys_diner.members
+ON members.customer_id = sales.customer_id
+WHERE order_date < join_date
+GROUP BY sales.customer_id
+ORDER BY sales.customer_id;
 ```
 **Result:**
+| customer_id | total_items_before_membership | total_amount_before_membership |
+| ----------- | ----------------------------- | ------------------------------ |
+| A           | 2                             | 25                             |
+| B           | 3                             | 40                             |
 
 **9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
 ```sql
