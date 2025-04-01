@@ -8,7 +8,7 @@ Danny was scrolling through his Instagram feed when something really caught his 
 Danny started by recruiting “runners” to deliver fresh pizza from Pizza Runner Headquarters (otherwise known as Danny’s house) and also maxed out his credit card to pay freelance developers to build a mobile app to accept orders from customers.
 
 ## Entity Relationship Diagram
-![Entity Relationship Diagram](https://raw.githubusercontent.com/Maitri3880/SQL-Case-Studies/images/erd-diagram.png)
+<img src="/ERD/ERD-pizza.png" width="500" alt="Pizza Runner ERD">
 
 ## Case Study Questions
 - Pizza Metrics
