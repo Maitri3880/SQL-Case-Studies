@@ -17,7 +17,7 @@ Danny has shared with you 3 key datasets for this case study:
 - `members`
 
 ### Entity Relationship Diagram
-![Entity Relationship Diagram](https://raw.githubusercontent.com/Maitri3880/SQL-Case-Studies/ERD/ERD-diner.png)
+<img src="/ERD/ERD-diner.png" width="500" alt="Danny's Diner ERD">
 
 ## Acknowledgments
 [8 Weeks SQL Challenge](https://8weeksqlchallenge.com/)
