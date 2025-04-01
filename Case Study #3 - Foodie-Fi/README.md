@@ -9,7 +9,7 @@ Danny finds a few smart friends to launch his new startup Foodie-Fi in 2020 and 
 Danny created Foodie-Fi with a data driven mindset and wanted to ensure all future investment decisions and new features were decided using data. This case study focuses on using subscription style digital data to answer important business questions.
 
 ## Entity Relationship Diagram
-![Entity Relationship Diagram](https://raw.githubusercontent.com/Maitri3880/SQL-Case-Studies/images/erd-diagram.png)
+<img src="/ERD/ERD-foodie.png" width="500" alt="Foodie Fi ERD">
 
 ## Business Rules
 - Customers can choose which plans to join Foodie-Fi when they first sign up.
